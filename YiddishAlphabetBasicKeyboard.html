@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="utf-8" />
+    <title>Yiddish Alphabet Basic Keyboard</title>
+    <style>
+      button {
+        font-size: 3em;
+        margin: 0.4em;
+        padding: 0.2em;
+      }
+
+      textarea {
+        font-size: 2em;
+      }
+
+    </style>
+
+  </head>
+
+  <body>
+    <h1>Yiddish Alphabet Basic Keyboard</h1>
+    <textarea id="textOutput" dir="rtl" style="width:95%" rows="4"></textarea>
+    <div id="root"></div>
+
+    <div dir="rtl" style="text-align:left">
+
+
+      <div>
+
+      </div>
+      <footer><a href="https://yivo.org/Yiddish-Alphabet">About the Yiddish Alef-BEYS (ALPHABET)</a>
+        <script>
+          var geresh = "\u05F3";
+
+          // This function returns a function.
+          function writeFunction(someText) {
+            function writeIt() {
+              document.getElementById("textOutput").value += someText;
+            }
+            return writeIt;
+
+          }
+
+          function createAndAttachButtonForWriting(currentText) {
+            createAndAttachLabelledButtonForWriting(currentText, currentText);
+          }
+
+          function createAndAttachLabelledButtonForWriting(textToWrite, buttonLabel) {
+            var root = document.getElementById("root");
+            var firstButton = document.createElement("button");
+            var firstButtonText = document.createTextNode(buttonLabel);
+            firstButton.appendChild(firstButtonText);
+            firstButton.onclick = writeFunction(textToWrite);
+            root.appendChild(firstButton);
+          }
+
+
+          function gereshIsLastCharacter(hebrewText) {
+            return (hebrewText[hebrewText.length - 1] === geresh);
+          }
+
+          const SHTUMER_ALEF = "\u05D0";
+          const PASEKH_ALEF = "\u05D0\u05B7";
+          const KOMETS_ALEF = "\u05D0\u05B8";
+          const BEYS = "\u05D1";
+          const VEYS = "\u05D1\u05BF";
+
+          var hebrewAlphabetForYiddish = [
+            SHTUMER_ALEF, PASEKH_ALEF, KOMETS_ALEF, BEYS, VEYS,
+            "\u05D2",
+            "\u05D3",
+            "\u05D4",
+            "\u05D5",
+            "\u05D5\u05BC",
+            "\u05D6",
+            "\u05D7",
+            "\u05D8",
+            "\u05D9",
+            "\u05DB\u05BC",
+            "\u05DB",
+            "\u05DA",
+            "\u05DC",
+            "\u05DE",
+            "\u05DD",
+            "\u05E0",
+            "\u05DF",
+            "\u05E1",
+            "\u05E2",
+            "\u05E4\u05BC",
+
+            "\u05E4\u05BF",
+            "\u05E3",
+
+            "\u05E6",
+            "\u05E5",
+            "\u05E7",
+            "\u05E8",
+            "\u05E9",
+            "\u05E9\u05C2",
+            "\u05EA\u05BC",
+            "\u05EA",
+          ];
+
+
+
+
+
+
+          var hebrewAlphabet = hebrewAlphabetForYiddish;
+          var letterCombinations = ["\u05D5\u05D5", "\u05D6\u05E9", "\u05D3\u05D6\u05E9", "\u05D8\u05E9", "\u05D5\u05E9", "\u05E9\u05E9", "\u05F2\u05B7"];
+          var root = document.getElementById("root");
+          root.dir = "rtl";
+          createAndAttachLabelledButtonForWriting(" ", "space");
+          createAndAttachLabelledButtonForWriting("\n", "new line");
+          createAndAttachLabelledButtonForWriting("\t", "indent");
+          createAndAttachLabelledButtonForWriting(".", ".");
+          createAndAttachLabelledButtonForWriting(",", ",");
+          createAndAttachLabelledButtonForWriting("?", "?");
+          createAndAttachLabelledButtonForWriting(";", ";");
+          createAndAttachLabelledButtonForWriting(":", ":");
+          createAndAttachLabelledButtonForWriting("\u05F3", "\u05F3 geresh");
+          createAndAttachLabelledButtonForWriting("\u05F4", "\u05F4 gershayim");
+
+          for (var i = 0; i < hebrewAlphabet.length; i++) {
+            createAndAttachButtonForWriting(hebrewAlphabet[i]);
+          }
+
+          for (var i = 0; i < letterCombinations.length; i++) {
+            createAndAttachButtonForWriting(letterCombinations[i]);
+          }
+
+        </script>
+
+  </body>
+
+</html>
+<!-- Created by Elsanussi Mneina (he/him). You can contact me at grassdewmorning@gmail.com, mentioning this page)
+  This single page web application for typing Hebrew syllable by syllable was first released to the public on March 30, 2022 on GitHub under an MIT license.
+https://github.com/elsanussi-s-mneina/hebrew-alphabet-syllabic-keyboard-html-js/
+Here is the LICENSE for this web application:
+MIT License
+Copyright (c) 2022 Elsanussi Mneina
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+-->
+
