@@ -21,7 +21,7 @@
 
   <body>
     <h1>Yiddish Alphabet Basic Keyboard</h1>
-    <textarea id="textOutput" dir="rtl" style="width:95%" rows="4" lang="yi"></textarea>
+    <textarea id="textOutput" dir="rtl" style="width:95%" rows="4" lang="yi" aria-label="Text you type with buttons below gets added to the end of the text in this text box" placeholder="Text you type with buttons below gets added to the end of the text in this text box"></textarea>
     <div id="root"></div>
 
     <div dir="rtl" style="text-align:left">
@@ -44,14 +44,25 @@
           }
 
           function createAndAttachButtonForWriting(currentText) {
-            createAndAttachLabelledButtonForWriting(currentText, currentText);
+            if (currentText.text) {
+              if (currentText.showOnButton) {
+                createAndAttachLabelledButtonForWriting(currentText.text, currentText.showOnButton, currentText.description);
+              } else {
+                createAndAttachLabelledButtonForWriting(currentText.text, currentText.text, currentText.description);
+
+              }
+
+            } else {
+              createAndAttachLabelledButtonForWriting(currentText, currentText);
+            }
           }
 
-          function createAndAttachLabelledButtonForWriting(textToWrite, buttonLabel) {
+          function createAndAttachLabelledButtonForWriting(textToWrite, buttonLabel, description) {
             var root = document.getElementById("root");
             var firstButton = document.createElement("button");
             var firstButtonText = document.createTextNode(buttonLabel);
             firstButton.appendChild(firstButtonText);
+            firstButton.ariaLabel = description;
             firstButton.onclick = writeFunction(textToWrite);
             root.appendChild(firstButton);
           }
@@ -68,39 +79,41 @@
           const VEYS = "\u05D1\u05BF";
 
           var hebrewAlphabetForYiddish = [
-            SHTUMER_ALEF, PASEKH_ALEF, KOMETS_ALEF, BEYS, VEYS,
-            "\u05D2",
-            "\u05D3",
-            "\u05D4",
-            "\u05D5",
-            "\u05D5\u05BC",
-            "\u05D6",
-            "\u05D7",
-            "\u05D8",
-            "\u05D9",
-            "\u05DB\u05BC",
-            "\u05DB",
-            "\u05DA",
-            "\u05DC",
-            "\u05DE",
-            "\u05DD",
-            "\u05E0",
-            "\u05DF",
-            "\u05E1",
-            "\u05E2",
-            "\u05E4\u05BC",
-
-            "\u05E4\u05BF",
-            "\u05E3",
-
-            "\u05E6",
-            "\u05E5",
-            "\u05E7",
-            "\u05E8",
-            "\u05E9",
-            "\u05E9\u05C2",
-            "\u05EA\u05BC",
-            "\u05EA",
+            {text: SHTUMER_ALEF, description: "shtumer alef" },
+            {text: PASEKH_ALEF, description: "pasekh alef"},
+            {text: KOMETS_ALEF, description: "komets alef"},
+            {text: BEYS, description: "beys"},
+            {text: VEYS, description: "veys"},
+            {text: "\u05D2", description: "giml"},
+            {text: "\u05D3", description: "daled"},
+            {text: "\u05D4", description: "hey"},
+            {text: "\u05D5", description: "vov"},
+            {text: "\u05D5\u05BC", description: "melupm vov"},
+            {text: "\u05D6", description: "zayen"},
+            {text: "\u05D7", description: "khes"},
+            {text: "\u05D8", description: "tes"},
+            {text: "\u05D9", description: "yud"},
+            {text: "\u05DB\u05BC", description: "kof"},
+            {text: "\u05DB", description: "khof"},
+            {text: "\u05DA", description: "langer khof"},
+            {text: "\u05DC", description: "lamed"},
+            {text: "\u05DE", description: "mem"},
+            {text: "\u05DD", description: "shlos mem"},
+            {text: "\u05E0", description: "nun"},
+            {text: "\u05DF", description: "langer nun"},
+            {text: "\u05E1", description: "samekh"},
+            {text: "\u05E2", description: "ayen"},
+            {text: "\u05E4\u05BC", description: "pey"},
+            {text: "\u05E4\u05BF", description: "fey"},
+            {text: "\u05E3", description: "langer fey"},
+            {text: "\u05E6", description: "tsadek"},
+            {text: "\u05E5", description: "langer tsadek"},
+            {text: "\u05E7", description: "kuf"},
+            {text: "\u05E8", description: "reysh"},
+            {text: "\u05E9", description: "shin"},
+            {text: "\u05E9\u05C2", description: "sin"},
+            {text: "\u05EA\u05BC", description: "tof"},
+            {text: "\u05EA", description: "sof"},
           ];
 
 
