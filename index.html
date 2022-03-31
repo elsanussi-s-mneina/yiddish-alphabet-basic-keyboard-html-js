@@ -25,41 +25,8 @@
         placeholder="Text you type with buttons below gets added to the end of the text in this text box"></textarea>
     <div id="root"></div>
 
-    <div dir="rtl" style="text-align:left">
-
-
-
-    </div>
     <footer><a href="https://yivo.org/Yiddish-Alphabet">About the Yiddish Alef-BEYS (ALPHABET)</a></footer>
     <script>
-        // This function returns a function.
-        function writeFunction(someText) {
-            function writeIt() {
-                document.getElementById("textOutput").value += someText;
-            }
-            return writeIt;
-        }
-
-        // Create a button that when pressed
-        // writes text into a text box.
-        // The parameter is expected to have
-        // text, button, and description properties of type string.
-        function createButtonForWriting(letter) {
-            return createLabelledButtonForWriting(letter.text, letter.buttonLabel, letter.description);
-        }
-
-        // Create a button that when pressed
-        // writes text into a text box.
-        // All parameters are strings.
-        function createLabelledButtonForWriting(textToWrite, buttonLabel, description) {
-            var root = document.getElementById("root");
-            var aButton = document.createElement("button");
-            var textNode = document.createTextNode(buttonLabel);
-            aButton.appendChild(textNode);
-            aButton.ariaLabel = description;
-            aButton.onclick = writeFunction(textToWrite);
-            return aButton;
-        }
 
         var yiddishAlphabet = [
             letter2("\u05D0", "shtumer alef"),
@@ -115,6 +82,9 @@
             letter2("\u05F4", "\u05F4 gershayim"),
         ];
 
+        var letterCombinations = [simpleLetter("\u05D5\u05D5"), simpleLetter("\u05D6\u05E9"), simpleLetter("\u05D3\u05D6\u05E9"), simpleLetter("\u05D8\u05E9"), simpleLetter("\u05D5\u05E9"), simpleLetter("\u05E9\u05E9"), simpleLetter("\u05F2\u05B7")];
+
+
         // letter2 is a function for defining data required for a button that writes the same text
         // as appears on the button itself. The audio description for the
         // button can differ.
@@ -130,25 +100,60 @@
             return { text: textLabelEtc, buttonLabel: textLabelEtc, description: textLabelEtc };
         }
 
-        var letterCombinations = [simpleLetter("\u05D5\u05D5"), simpleLetter("\u05D6\u05E9"), simpleLetter("\u05D3\u05D6\u05E9"), simpleLetter("\u05D8\u05E9"), simpleLetter("\u05D5\u05E9"), simpleLetter("\u05E9\u05E9"), simpleLetter("\u05F2\u05B7")];
-        var root = document.getElementById("root");
-        root.dir = "rtl";
 
-        for (var i = 0; i < whiteSpaceCharacters.length; i++) {
-            root.appendChild(createButtonForWriting(whiteSpaceCharacters[i]));
-        }
-        for (var i = 0; i < punctuationCharacters.length; i++) {
-            root.appendChild(createButtonForWriting(punctuationCharacters[i]));
-        }
-
-        for (var i = 0; i < yiddishAlphabet.length; i++) {
-            root.appendChild(createButtonForWriting(yiddishAlphabet[i]));
+        // If something is clicked,
+        // and it has an attribute "textToWrite"
+        // then add the text value of textToWrite
+        // to the textOutput text area.
+        function onClickButtonForWriting(event) {
+            if (event.target.textToWrite) {
+                document.getElementById("textOutput").value += event.target.textToWrite;
+            }
         }
 
-        for (var i = 0; i < letterCombinations.length; i++) {
-            root.appendChild(createButtonForWriting(letterCombinations[i]));
+        // Create a button that when pressed
+        // writes text into a text box.
+        // The parameter is expected to have
+        // text, button, and description properties of type string.
+        function createButtonForWriting(letter) {
+            return createLabelledButtonForWriting(letter.text, letter.buttonLabel, letter.description);
         }
 
+        // Create a button that when pressed
+        // writes text into a text box.
+        // All parameters are strings.
+        function createLabelledButtonForWriting(textToWrite, buttonLabel, description) {
+            var aButton = document.createElement("button");
+            var textNode = document.createTextNode(buttonLabel);
+            aButton.appendChild(textNode);
+            aButton.ariaLabel = description;
+            aButton.textToWrite = textToWrite;
+            return aButton;
+        }
+
+        function attachButtonsForWriting(idOfRootElement) {
+            var root = document.getElementById(idOfRootElement);
+
+            root.dir = "rtl";
+            root.addEventListener("click", onClickButtonForWriting);
+
+            for (var i = 0; i < whiteSpaceCharacters.length; i++) {
+                root.appendChild(createButtonForWriting(whiteSpaceCharacters[i]));
+            }
+            for (var i = 0; i < punctuationCharacters.length; i++) {
+                root.appendChild(createButtonForWriting(punctuationCharacters[i]));
+            }
+
+            for (var i = 0; i < yiddishAlphabet.length; i++) {
+                root.appendChild(createButtonForWriting(yiddishAlphabet[i]));
+            }
+
+            for (var i = 0; i < letterCombinations.length; i++) {
+                root.appendChild(createButtonForWriting(letterCombinations[i]));
+            }
+        }
+
+        attachButtonsForWriting("root");
     </script>
 
 </body>
