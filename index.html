@@ -44,24 +44,24 @@
         // writes text into a text box.
         // The parameter is expected to have
         // text, button, and description properties of type string.
-        function createAndAttachButtonForWriting(letter) {
-            createAndAttachLabelledButtonForWriting(letter.text, letter.buttonLabel, letter.description);
+        function createButtonForWriting(letter) {
+            return createLabelledButtonForWriting(letter.text, letter.buttonLabel, letter.description);
         }
 
         // Create a button that when pressed
         // writes text into a text box.
         // All parameters are strings.
-        function createAndAttachLabelledButtonForWriting(textToWrite, buttonLabel, description) {
+        function createLabelledButtonForWriting(textToWrite, buttonLabel, description) {
             var root = document.getElementById("root");
-            var firstButton = document.createElement("button");
-            var firstButtonText = document.createTextNode(buttonLabel);
-            firstButton.appendChild(firstButtonText);
-            firstButton.ariaLabel = description;
-            firstButton.onclick = writeFunction(textToWrite);
-            root.appendChild(firstButton);
+            var aButton = document.createElement("button");
+            var textNode = document.createTextNode(buttonLabel);
+            aButton.appendChild(textNode);
+            aButton.ariaLabel = description;
+            aButton.onclick = writeFunction(textToWrite);
+            return aButton;
         }
 
-        var hebrewAlphabetForYiddish = [
+        var yiddishAlphabet = [
             letter2("\u05D0", "shtumer alef"),
             letter2("\u05D0\u05B7", "pasekh alef"),
             letter2("\u05D0\u05B8", "komets alef"),
@@ -130,24 +130,23 @@
             return { text: textLabelEtc, buttonLabel: textLabelEtc, description: textLabelEtc };
         }
 
-        var hebrewAlphabet = hebrewAlphabetForYiddish;
         var letterCombinations = [simpleLetter("\u05D5\u05D5"), simpleLetter("\u05D6\u05E9"), simpleLetter("\u05D3\u05D6\u05E9"), simpleLetter("\u05D8\u05E9"), simpleLetter("\u05D5\u05E9"), simpleLetter("\u05E9\u05E9"), simpleLetter("\u05F2\u05B7")];
         var root = document.getElementById("root");
         root.dir = "rtl";
 
         for (var i = 0; i < whiteSpaceCharacters.length; i++) {
-            createAndAttachButtonForWriting(whiteSpaceCharacters[i]);
+            root.appendChild(createButtonForWriting(whiteSpaceCharacters[i]));
         }
         for (var i = 0; i < punctuationCharacters.length; i++) {
-            createAndAttachButtonForWriting(punctuationCharacters[i]);
+            root.appendChild(createButtonForWriting(punctuationCharacters[i]));
         }
 
-        for (var i = 0; i < hebrewAlphabet.length; i++) {
-            createAndAttachButtonForWriting(hebrewAlphabet[i]);
+        for (var i = 0; i < yiddishAlphabet.length; i++) {
+            root.appendChild(createButtonForWriting(yiddishAlphabet[i]));
         }
 
         for (var i = 0; i < letterCombinations.length; i++) {
-            createAndAttachButtonForWriting(letterCombinations[i]);
+            root.appendChild(createButtonForWriting(letterCombinations[i]));
         }
 
     </script>
