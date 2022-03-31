@@ -28,124 +28,137 @@
     <div dir="rtl" style="text-align:left">
 
 
-        <div>
 
-        </div>
-        <footer><a href="https://yivo.org/Yiddish-Alphabet">About the Yiddish Alef-BEYS (ALPHABET)</a>
-            <script>
-                var geresh = "\u05F3";
+    </div>
+    <footer><a href="https://yivo.org/Yiddish-Alphabet">About the Yiddish Alef-BEYS (ALPHABET)</a></footer>
+    <script>
+        var geresh = "\u05F3";
 
-                // This function returns a function.
-                function writeFunction(someText) {
-                    function writeIt() {
-                        document.getElementById("textOutput").value += someText;
-                    }
-                    return writeIt;
+        // This function returns a function.
+        function writeFunction(someText) {
+            function writeIt() {
+                document.getElementById("textOutput").value += someText;
+            }
+            return writeIt;
+        }
+        
+        // Create a button that when pressed
+        // writes text into a text box.
+        // The parameter is expected to have
+        // text, button, and description properties of type string.
+        function createAndAttachButtonForWriting(letter) {
+            createAndAttachLabelledButtonForWriting(letter.text, letter.buttonLabel, letter.description);
+        }
 
-                }
+        // Create a button that when pressed
+        // writes text into a text box.
+        // All parameters are strings.
+        function createAndAttachLabelledButtonForWriting(textToWrite, buttonLabel, description) {
+            var root = document.getElementById("root");
+            var firstButton = document.createElement("button");
+            var firstButtonText = document.createTextNode(buttonLabel);
+            firstButton.appendChild(firstButtonText);
+            firstButton.ariaLabel = description;
+            firstButton.onclick = writeFunction(textToWrite);
+            root.appendChild(firstButton);
+        }
 
-                function createAndAttachButtonForWriting(letter) {
-                    createAndAttachLabelledButtonForWriting(letter.text, letter.buttonLabel, letter.description);
-                }
+        // Calculate whether the last character of a string
+        // is the HEBREW PUNCTUATION GERESH character.
+        function gereshIsLastCharacter(hebrewText) {
+            return (hebrewText[hebrewText.length - 1] === geresh);
+        }
 
-                function createAndAttachLabelledButtonForWriting(textToWrite, buttonLabel, description) {
-                    var root = document.getElementById("root");
-                    var firstButton = document.createElement("button");
-                    var firstButtonText = document.createTextNode(buttonLabel);
-                    firstButton.appendChild(firstButtonText);
-                    firstButton.ariaLabel = description;
-                    firstButton.onclick = writeFunction(textToWrite);
-                    root.appendChild(firstButton);
-                }
+        var hebrewAlphabetForYiddish = [
+            letter2("\u05D0", "shtumer alef"),
+            letter2("\u05D0\u05B7", "pasekh alef"),
+            letter2("\u05D0\u05B8", "komets alef"),
+            letter2("\u05D1", "beys"),
+            letter2("\u05D1\u05BF", "veys"),
+            letter2("\u05D2", "giml"),
+            letter2("\u05D3", "daled"),
+            letter2("\u05D4", "hey"),
+            letter2("\u05D5", "vov"),
+            letter2("\u05D5\u05BC", "melupm vov"),
+            letter2("\u05D6", "zayen"),
+            letter2("\u05D7", "khes"),
+            letter2("\u05D8", "tes"),
+            letter2("\u05D9", "yud"),
+            letter2("\u05DB\u05BC", "kof"),
+            letter2("\u05DB", "khof"),
+            letter2("\u05DA", "langer khof"),
+            letter2("\u05DC", "lamed"),
+            letter2("\u05DE", "mem"),
+            letter2("\u05DD", "shlos mem"),
+            letter2("\u05E0", "nun"),
+            letter2("\u05DF", "langer nun"),
+            letter2("\u05E1", "samekh"),
+            letter2("\u05E2", "ayen"),
+            letter2("\u05E4\u05BC", "pey"),
+            letter2("\u05E4\u05BF", "fey"),
+            letter2("\u05E3", "langer fey"),
+            letter2("\u05E6", "tsadek"),
+            letter2("\u05E5", "langer tsadek"),
+            letter2("\u05E7", "kuf"),
+            letter2("\u05E8", "reysh"),
+            letter2("\u05E9", "shin"),
+            letter2("\u05E9\u05C2", "sin"),
+            letter2("\u05EA\u05BC", "tof"),
+            letter2("\u05EA", "sof"),
+        ];
 
+        var whiteSpaceCharacters = [
+            { text: " ", buttonLabel: "space", description: "space" },
+            { text: "\n", buttonLabel: "new line", description: "new line" },
+            { text: "\t", buttonLabel: "indent", description: "indent" },
+        ];
 
-                function gereshIsLastCharacter(hebrewText) {
-                    return (hebrewText[hebrewText.length - 1] === geresh);
-                }
+        var punctuationCharacters = [
+            letter2(".", "."),
+            letter2(",", ","),
+            letter2("?", "?"),
+            letter2(";", ";"),
+            letter2(":", ":"),
+            letter2("\u05F3", "\u05F3 geresh"),
+            letter2("\u05F4", "\u05F4 gershayim"),
+        ];
 
-                var hebrewAlphabetForYiddish = [
-                    letter2("\u05D0", "shtumer alef"),
-                    letter2("\u05D0\u05B7", "pasekh alef"),
-                    letter2("\u05D0\u05B8", "komets alef"),
-                    letter2("\u05D1", "beys"),
-                    letter2("\u05D1\u05BF", "veys"),
-                    letter2("\u05D2", "giml"),
-                    letter2("\u05D3", "daled"),
-                    letter2("\u05D4", "hey"),
-                    letter2("\u05D5", "vov"),
-                    letter2("\u05D5\u05BC", "melupm vov"),
-                    letter2("\u05D6", "zayen"),
-                    letter2("\u05D7", "khes"),
-                    letter2("\u05D8", "tes"),
-                    letter2("\u05D9", "yud"),
-                    letter2("\u05DB\u05BC", "kof"),
-                    letter2("\u05DB", "khof"),
-                    letter2("\u05DA", "langer khof"),
-                    letter2("\u05DC", "lamed"),
-                    letter2("\u05DE", "mem"),
-                    letter2("\u05DD", "shlos mem"),
-                    letter2("\u05E0", "nun"),
-                    letter2("\u05DF", "langer nun"),
-                    letter2("\u05E1", "samekh"),
-                    letter2("\u05E2", "ayen"),
-                    letter2("\u05E4\u05BC", "pey"),
-                    letter2("\u05E4\u05BF", "fey"),
-                    letter2("\u05E3", "langer fey"),
-                    letter2("\u05E6", "tsadek"),
-                    letter2("\u05E5", "langer tsadek"),
-                    letter2("\u05E7", "kuf"),
-                    letter2("\u05E8", "reysh"),
-                    letter2("\u05E9", "shin"),
-                    letter2("\u05E9\u05C2", "sin"),
-                    letter2("\u05EA\u05BC", "tof"),
-                    letter2("\u05EA", "sof"),
-                ];
+        // letter2 is a function for defining data required for a button that writes the same text
+        // as appears on the button itself. The audio description for the
+        // button can differ.
+        function letter2(textLabel, descriptionValue) {
+            return { text: textLabel, buttonLabel: textLabel, description: descriptionValue };
+        }
 
-                var whiteSpaceCharacters = [
-                    {text:" ", buttonLabel: "space", description: "space"},
-                    {text:"\n", buttonLabel: "new line", description: "new line"},
-                    {text:"\t", buttonLabel: "indent", description: "indent"},
-                ];
+        // simple letter is a function for creating the data for creating
+        // a button
+        // that writes exactly what appears on it
+        // and has the same audio description of what it writes. 
+        function simpleLetter(textLabelEtc) {
+            return { text: textLabelEtc, buttonLabel: textLabelEtc, description: textLabelEtc };
+        }
 
-                var punctuationCharacters = [
-                    letter2(".", "."),
-                    letter2(",", ","),
-                    letter2("?", "?"),
-                    letter2(";", ";"),
-                    letter2(":", ":"),
-                    letter2("\u05F3", "\u05F3 geresh"),
-                    letter2("\u05F4", "\u05F4 gershayim"),
-                ];
+        var hebrewAlphabet = hebrewAlphabetForYiddish;
+        var letterCombinations = [simpleLetter("\u05D5\u05D5"), simpleLetter("\u05D6\u05E9"), simpleLetter("\u05D3\u05D6\u05E9"), simpleLetter("\u05D8\u05E9"), simpleLetter("\u05D5\u05E9"), simpleLetter("\u05E9\u05E9"), simpleLetter("\u05F2\u05B7")];
+        var root = document.getElementById("root");
+        root.dir = "rtl";
 
-                function letter2(textLabel, descriptionValue) {
-                    return { text: textLabel, buttonLabel: textLabel, description: descriptionValue };
-                }
+        for (var i = 0; i < whiteSpaceCharacters.length; i++) {
+            createAndAttachButtonForWriting(whiteSpaceCharacters[i]);
+        }
+        for (var i = 0; i < punctuationCharacters.length; i++) {
+            createAndAttachButtonForWriting(punctuationCharacters[i]);
+        }
 
-                function simpleLetter(textLabelEtc) {
-                    return { text: textLabelEtc, buttonLabel: textLabelEtc, description: textLabelEtc };
-                }
+        for (var i = 0; i < hebrewAlphabet.length; i++) {
+            createAndAttachButtonForWriting(hebrewAlphabet[i]);
+        }
 
-                var hebrewAlphabet = hebrewAlphabetForYiddish;
-                var letterCombinations = [simpleLetter("\u05D5\u05D5"), simpleLetter("\u05D6\u05E9"), simpleLetter("\u05D3\u05D6\u05E9"), simpleLetter("\u05D8\u05E9"), simpleLetter("\u05D5\u05E9"), simpleLetter("\u05E9\u05E9"), simpleLetter("\u05F2\u05B7")];
-                var root = document.getElementById("root");
-                root.dir = "rtl";
+        for (var i = 0; i < letterCombinations.length; i++) {
+            createAndAttachButtonForWriting(letterCombinations[i]);
+        }
 
-                for (var i = 0; i < whiteSpaceCharacters.length; i++) {
-                    createAndAttachButtonForWriting(whiteSpaceCharacters[i]);
-                }
-                for (var i = 0; i < punctuationCharacters.length; i++) {
-                    createAndAttachButtonForWriting(punctuationCharacters[i]);
-                }
-
-                for (var i = 0; i < hebrewAlphabet.length; i++) {
-                    createAndAttachButtonForWriting(hebrewAlphabet[i]);
-                }
-
-                for (var i = 0; i < letterCombinations.length; i++) {
-                    createAndAttachButtonForWriting(letterCombinations[i]);
-                }
-
-            </script>
+    </script>
 
 </body>
 
