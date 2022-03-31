@@ -1,152 +1,153 @@
 <!DOCTYPE html>
 <html lang="en">
 
-  <head>
+<head>
     <meta charset="utf-8" />
     <title>Yiddish Alphabet Basic Keyboard</title>
     <style>
-      button {
-        font-size: 3em;
-        margin: 0.4em;
-        padding: 0.2em;
-      }
+        button {
+            font-size: 3em;
+            margin: 0.4em;
+            padding: 0.2em;
+        }
 
-      textarea {
-        font-size: 2em;
-      }
-
+        textarea {
+            font-size: 2em;
+        }
     </style>
 
-  </head>
+</head>
 
-  <body>
+<body>
     <h1>Yiddish Alphabet Basic Keyboard</h1>
-    <textarea id="textOutput" dir="rtl" style="width:95%" rows="4" lang="yi" aria-label="Text you type with buttons below gets added to the end of the text in this text box" placeholder="Text you type with buttons below gets added to the end of the text in this text box"></textarea>
+    <textarea id="textOutput" dir="rtl" style="width:95%" rows="4" lang="yi"
+        aria-label="Text you type with buttons below gets added to the end of the text in this text box"
+        placeholder="Text you type with buttons below gets added to the end of the text in this text box"></textarea>
     <div id="root"></div>
 
     <div dir="rtl" style="text-align:left">
 
 
-      <div>
+        <div>
 
-      </div>
-      <footer><a href="https://yivo.org/Yiddish-Alphabet">About the Yiddish Alef-BEYS (ALPHABET)</a>
-        <script>
-          var geresh = "\u05F3";
+        </div>
+        <footer><a href="https://yivo.org/Yiddish-Alphabet">About the Yiddish Alef-BEYS (ALPHABET)</a>
+            <script>
+                var geresh = "\u05F3";
 
-          // This function returns a function.
-          function writeFunction(someText) {
-            function writeIt() {
-              document.getElementById("textOutput").value += someText;
-            }
-            return writeIt;
+                // This function returns a function.
+                function writeFunction(someText) {
+                    function writeIt() {
+                        document.getElementById("textOutput").value += someText;
+                    }
+                    return writeIt;
 
-          }
+                }
 
-          function createAndAttachButtonForWriting(currentText) {
-            if (currentText.text) {
-              if (currentText.showOnButton) {
-                createAndAttachLabelledButtonForWriting(currentText.text, currentText.showOnButton, currentText.description);
-              } else {
-                createAndAttachLabelledButtonForWriting(currentText.text, currentText.text, currentText.description);
+                function createAndAttachButtonForWriting(letter) {
+                    createAndAttachLabelledButtonForWriting(letter.text, letter.buttonLabel, letter.description);
+                }
 
-              }
-
-            } else {
-              createAndAttachLabelledButtonForWriting(currentText, currentText);
-            }
-          }
-
-          function createAndAttachLabelledButtonForWriting(textToWrite, buttonLabel, description) {
-            var root = document.getElementById("root");
-            var firstButton = document.createElement("button");
-            var firstButtonText = document.createTextNode(buttonLabel);
-            firstButton.appendChild(firstButtonText);
-            firstButton.ariaLabel = description;
-            firstButton.onclick = writeFunction(textToWrite);
-            root.appendChild(firstButton);
-          }
+                function createAndAttachLabelledButtonForWriting(textToWrite, buttonLabel, description) {
+                    var root = document.getElementById("root");
+                    var firstButton = document.createElement("button");
+                    var firstButtonText = document.createTextNode(buttonLabel);
+                    firstButton.appendChild(firstButtonText);
+                    firstButton.ariaLabel = description;
+                    firstButton.onclick = writeFunction(textToWrite);
+                    root.appendChild(firstButton);
+                }
 
 
-          function gereshIsLastCharacter(hebrewText) {
-            return (hebrewText[hebrewText.length - 1] === geresh);
-          }
+                function gereshIsLastCharacter(hebrewText) {
+                    return (hebrewText[hebrewText.length - 1] === geresh);
+                }
 
-          const SHTUMER_ALEF = "\u05D0";
-          const PASEKH_ALEF = "\u05D0\u05B7";
-          const KOMETS_ALEF = "\u05D0\u05B8";
-          const BEYS = "\u05D1";
-          const VEYS = "\u05D1\u05BF";
+                var hebrewAlphabetForYiddish = [
+                    letter2("\u05D0", "shtumer alef"),
+                    letter2("\u05D0\u05B7", "pasekh alef"),
+                    letter2("\u05D0\u05B8", "komets alef"),
+                    letter2("\u05D1", "beys"),
+                    letter2("\u05D1\u05BF", "veys"),
+                    letter2("\u05D2", "giml"),
+                    letter2("\u05D3", "daled"),
+                    letter2("\u05D4", "hey"),
+                    letter2("\u05D5", "vov"),
+                    letter2("\u05D5\u05BC", "melupm vov"),
+                    letter2("\u05D6", "zayen"),
+                    letter2("\u05D7", "khes"),
+                    letter2("\u05D8", "tes"),
+                    letter2("\u05D9", "yud"),
+                    letter2("\u05DB\u05BC", "kof"),
+                    letter2("\u05DB", "khof"),
+                    letter2("\u05DA", "langer khof"),
+                    letter2("\u05DC", "lamed"),
+                    letter2("\u05DE", "mem"),
+                    letter2("\u05DD", "shlos mem"),
+                    letter2("\u05E0", "nun"),
+                    letter2("\u05DF", "langer nun"),
+                    letter2("\u05E1", "samekh"),
+                    letter2("\u05E2", "ayen"),
+                    letter2("\u05E4\u05BC", "pey"),
+                    letter2("\u05E4\u05BF", "fey"),
+                    letter2("\u05E3", "langer fey"),
+                    letter2("\u05E6", "tsadek"),
+                    letter2("\u05E5", "langer tsadek"),
+                    letter2("\u05E7", "kuf"),
+                    letter2("\u05E8", "reysh"),
+                    letter2("\u05E9", "shin"),
+                    letter2("\u05E9\u05C2", "sin"),
+                    letter2("\u05EA\u05BC", "tof"),
+                    letter2("\u05EA", "sof"),
+                ];
 
-          var hebrewAlphabetForYiddish = [
-            {text: SHTUMER_ALEF, description: "shtumer alef" },
-            {text: PASEKH_ALEF, description: "pasekh alef"},
-            {text: KOMETS_ALEF, description: "komets alef"},
-            {text: BEYS, description: "beys"},
-            {text: VEYS, description: "veys"},
-            {text: "\u05D2", description: "giml"},
-            {text: "\u05D3", description: "daled"},
-            {text: "\u05D4", description: "hey"},
-            {text: "\u05D5", description: "vov"},
-            {text: "\u05D5\u05BC", description: "melupm vov"},
-            {text: "\u05D6", description: "zayen"},
-            {text: "\u05D7", description: "khes"},
-            {text: "\u05D8", description: "tes"},
-            {text: "\u05D9", description: "yud"},
-            {text: "\u05DB\u05BC", description: "kof"},
-            {text: "\u05DB", description: "khof"},
-            {text: "\u05DA", description: "langer khof"},
-            {text: "\u05DC", description: "lamed"},
-            {text: "\u05DE", description: "mem"},
-            {text: "\u05DD", description: "shlos mem"},
-            {text: "\u05E0", description: "nun"},
-            {text: "\u05DF", description: "langer nun"},
-            {text: "\u05E1", description: "samekh"},
-            {text: "\u05E2", description: "ayen"},
-            {text: "\u05E4\u05BC", description: "pey"},
-            {text: "\u05E4\u05BF", description: "fey"},
-            {text: "\u05E3", description: "langer fey"},
-            {text: "\u05E6", description: "tsadek"},
-            {text: "\u05E5", description: "langer tsadek"},
-            {text: "\u05E7", description: "kuf"},
-            {text: "\u05E8", description: "reysh"},
-            {text: "\u05E9", description: "shin"},
-            {text: "\u05E9\u05C2", description: "sin"},
-            {text: "\u05EA\u05BC", description: "tof"},
-            {text: "\u05EA", description: "sof"},
-          ];
+                var whiteSpaceCharacters = [
+                    {text:" ", buttonLabel: "space", description: "space"},
+                    {text:"\n", buttonLabel: "new line", description: "new line"},
+                    {text:"\t", buttonLabel: "indent", description: "indent"},
+                ];
 
+                var punctuationCharacters = [
+                    letter2(".", "."),
+                    letter2(",", ","),
+                    letter2("?", "?"),
+                    letter2(";", ";"),
+                    letter2(":", ":"),
+                    letter2("\u05F3", "\u05F3 geresh"),
+                    letter2("\u05F4", "\u05F4 gershayim"),
+                ];
 
+                function letter2(textLabel, descriptionValue) {
+                    return { text: textLabel, buttonLabel: textLabel, description: descriptionValue };
+                }
 
+                function simpleLetter(textLabelEtc) {
+                    return { text: textLabelEtc, buttonLabel: textLabelEtc, description: textLabelEtc };
+                }
 
+                var hebrewAlphabet = hebrewAlphabetForYiddish;
+                var letterCombinations = [simpleLetter("\u05D5\u05D5"), simpleLetter("\u05D6\u05E9"), simpleLetter("\u05D3\u05D6\u05E9"), simpleLetter("\u05D8\u05E9"), simpleLetter("\u05D5\u05E9"), simpleLetter("\u05E9\u05E9"), simpleLetter("\u05F2\u05B7")];
+                var root = document.getElementById("root");
+                root.dir = "rtl";
 
+                for (var i = 0; i < whiteSpaceCharacters.length; i++) {
+                    createAndAttachButtonForWriting(whiteSpaceCharacters[i]);
+                }
+                for (var i = 0; i < punctuationCharacters.length; i++) {
+                    createAndAttachButtonForWriting(punctuationCharacters[i]);
+                }
 
-          var hebrewAlphabet = hebrewAlphabetForYiddish;
-          var letterCombinations = ["\u05D5\u05D5", "\u05D6\u05E9", "\u05D3\u05D6\u05E9", "\u05D8\u05E9", "\u05D5\u05E9", "\u05E9\u05E9", "\u05F2\u05B7"];
-          var root = document.getElementById("root");
-          root.dir = "rtl";
-          createAndAttachLabelledButtonForWriting(" ", "space");
-          createAndAttachLabelledButtonForWriting("\n", "new line");
-          createAndAttachLabelledButtonForWriting("\t", "indent");
-          createAndAttachLabelledButtonForWriting(".", ".");
-          createAndAttachLabelledButtonForWriting(",", ",");
-          createAndAttachLabelledButtonForWriting("?", "?");
-          createAndAttachLabelledButtonForWriting(";", ";");
-          createAndAttachLabelledButtonForWriting(":", ":");
-          createAndAttachLabelledButtonForWriting("\u05F3", "\u05F3 geresh");
-          createAndAttachLabelledButtonForWriting("\u05F4", "\u05F4 gershayim");
+                for (var i = 0; i < hebrewAlphabet.length; i++) {
+                    createAndAttachButtonForWriting(hebrewAlphabet[i]);
+                }
 
-          for (var i = 0; i < hebrewAlphabet.length; i++) {
-            createAndAttachButtonForWriting(hebrewAlphabet[i]);
-          }
+                for (var i = 0; i < letterCombinations.length; i++) {
+                    createAndAttachButtonForWriting(letterCombinations[i]);
+                }
 
-          for (var i = 0; i < letterCombinations.length; i++) {
-            createAndAttachButtonForWriting(letterCombinations[i]);
-          }
+            </script>
 
-        </script>
-
-  </body>
+</body>
 
 </html>
 <!-- Created by Elsanussi Mneina (he/him). You can contact me at grassdewmorning@gmail.com, mentioning this page)
@@ -171,4 +172,3 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 -->
-
