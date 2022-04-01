@@ -14,6 +14,19 @@
         textarea {
             font-size: 2em;
         }
+
+        h2 {
+            margin-top: 1.5em;
+            margin-bottom: 0.0em;
+        }
+
+        /* Some classes for style, for those who want
+        a more specific style:
+        .punctuation {}
+        .alphabet {}
+        .whitespace {}
+        .combinations {}
+        */
     </style>
 
 </head>
@@ -67,9 +80,9 @@
         ];
 
         var whiteSpaceCharacters = [
-            { text: " ", buttonLabel: "space", description: "space" },
-            { text: "\n", buttonLabel: "new line", description: "new line" },
-            { text: "\t", buttonLabel: "indent", description: "indent" },
+            { text: " ", buttonLabel: "[space]", description: "add space" },
+            { text: "\n", buttonLabel: "[start new line]", description: "start new line" },
+            { text: "\t", buttonLabel: "[indent]", description: "indent" },
         ];
 
         var punctuationCharacters = [
@@ -131,26 +144,53 @@
             return aButton;
         }
 
+        function createHeading2(textToShow) {
+            var element = document.createElement("h2");
+            var textNode = document.createTextNode(textToShow);
+            element.appendChild(textNode);
+            return element;
+        }
+
         function attachButtonsForWriting(idOfRootElement) {
             var root = document.getElementById(idOfRootElement);
 
             root.dir = "rtl";
             root.addEventListener("click", onClickButtonForWriting);
 
+            var whiteSpaceDiv = document.createElement("div");
+            whiteSpaceDiv.className = "whitespace";
+            root.appendChild(createHeading2("Spacing"))
             for (var i = 0; i < whiteSpaceCharacters.length; i++) {
-                root.appendChild(createButtonForWriting(whiteSpaceCharacters[i]));
+                whiteSpaceDiv.appendChild(createButtonForWriting(whiteSpaceCharacters[i]));
             }
+            root.appendChild(whiteSpaceDiv);
+
+            var punctuationDiv = document.createElement("div");
+            punctuationDiv.className = "punctuation";
+            root.appendChild(createHeading2("Punctuation"))
+
             for (var i = 0; i < punctuationCharacters.length; i++) {
-                root.appendChild(createButtonForWriting(punctuationCharacters[i]));
+                punctuationDiv.appendChild(createButtonForWriting(punctuationCharacters[i]));
             }
+            root.appendChild(punctuationDiv);
+
+            var alphabetDiv = document.createElement("div");
+            alphabetDiv.className = "alphabet";
+            root.appendChild(createHeading2("Alphabet"))
 
             for (var i = 0; i < yiddishAlphabet.length; i++) {
-                root.appendChild(createButtonForWriting(yiddishAlphabet[i]));
+                alphabetDiv.appendChild(createButtonForWriting(yiddishAlphabet[i]));
             }
+            root.appendChild(alphabetDiv);
 
+            var combinationsDiv = document.createElement("div");
+            root.appendChild(createHeading2("Letter Combinations"))
+
+            combinationsDiv.className = "combinations";
             for (var i = 0; i < letterCombinations.length; i++) {
-                root.appendChild(createButtonForWriting(letterCombinations[i]));
+                combinationsDiv.appendChild(createButtonForWriting(letterCombinations[i]));
             }
+            root.appendChild(combinationsDiv);
         }
 
         attachButtonsForWriting("root");
