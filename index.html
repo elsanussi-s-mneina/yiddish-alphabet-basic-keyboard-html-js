@@ -37,41 +37,41 @@
     <script>
 
         var yiddishAlphabet = [
-            letter2("\u05D0", "shtumer alef"),
-            letter2("\u05D0\u05B7", "pasekh alef"),
-            letter2("\u05D0\u05B8", "komets alef"),
-            letter2("\u05D1", "beys"),
-            letter2("\u05D1\u05BF", "veys"),
-            letter2("\u05D2", "giml"),
-            letter2("\u05D3", "daled"),
-            letter2("\u05D4", "hey"),
-            letter2("\u05D5", "vov"),
-            letter2("\u05D5\u05BC", "melupm vov"),
-            letter2("\u05D6", "zayen"),
-            letter2("\u05D7", "khes"),
-            letter2("\u05D8", "tes"),
-            letter2("\u05D9", "yud"),
-            letter2("\u05DB\u05BC", "kof"),
-            letter2("\u05DB", "khof"),
-            letter2("\u05DA", "langer khof"),
-            letter2("\u05DC", "lamed"),
-            letter2("\u05DE", "mem"),
-            letter2("\u05DD", "shlos mem"),
-            letter2("\u05E0", "nun"),
-            letter2("\u05DF", "langer nun"),
-            letter2("\u05E1", "samekh"),
-            letter2("\u05E2", "ayen"),
-            letter2("\u05E4\u05BC", "pey"),
-            letter2("\u05E4\u05BF", "fey"),
-            letter2("\u05E3", "langer fey"),
-            letter2("\u05E6", "tsadek"),
-            letter2("\u05E5", "langer tsadek"),
-            letter2("\u05E7", "kuf"),
-            letter2("\u05E8", "reysh"),
-            letter2("\u05E9", "shin"),
-            letter2("\u05E9\u05C2", "sin"),
-            letter2("\u05EA\u05BC", "tof"),
-            letter2("\u05EA", "sof"),
+            { text: "\u05D0", buttonLabel: "shtumer alef", description: "shtumer alef" },
+            { text: "\u05D0\u05B7", buttonLabel: "pasekh alef", description: "pasekh alef" },
+            { text: "\u05D0\u05B8", buttonLabel: "komets alef", description: "komets alef" },
+            { text: "\u05D1", buttonLabel: "beys", description: "beys" },
+            { text: "\u05D1\u05BF", buttonLabel: "veys", description: "veys" },
+            { text: "\u05D2", buttonLabel: "giml", description: "giml" },
+            { text: "\u05D3", buttonLabel: "daled", description: "daled" },
+            { text: "\u05D4", buttonLabel: "hey", description: "hey" },
+            { text: "\u05D5", buttonLabel: "vov", description: "vov" },
+            { text: "\u05D5\u05BC", buttonLabel: "melupm vov", description: "melupm vov" },
+            { text: "\u05D6", buttonLabel: "zayen", description: "zayen" },
+            { text: "\u05D7", buttonLabel: "khes", description: "khes" },
+            { text: "\u05D8", buttonLabel: "tes", description: "tes" },
+            { text: "\u05D9", buttonLabel: "yud", description: "yud" },
+            { text: "\u05DB\u05BC", buttonLabel: "kof", description: "kof" },
+            { text: "\u05DB", buttonLabel: "khof", description: "khof" },
+            { text: "\u05DA", buttonLabel: "langer khof", description: "langer khof" },
+            { text: "\u05DC", buttonLabel: "lamed", description: "lamed" },
+            { text: "\u05DE", buttonLabel: "mem", description: "mem" },
+            { text: "\u05DD", buttonLabel: "shlos mem", description: "shlos mem" },
+            { text: "\u05E0", buttonLabel: "nun", description: "nun" },
+            { text: "\u05DF", buttonLabel: "langer nun", description: "langer nun" },
+            { text: "\u05E1", buttonLabel: "samekh", description: "samekh" },
+            { text: "\u05E2", buttonLabel: "ayen", description: "ayen" },
+            { text: "\u05E4\u05BC", buttonLabel: "pey", description: "pey" },
+            { text: "\u05E4\u05BF", buttonLabel: "fey", description: "fey" },
+            { text: "\u05E3", buttonLabel: "langer fey", description: "langer fey" },
+            { text: "\u05E6", buttonLabel: "tsadek", description: "tsadek" },
+            { text: "\u05E5", buttonLabel: "langer tsadek", description: "langer tsadek" },
+            { text: "\u05E7", buttonLabel: "kuf", description: "kuf" },
+            { text: "\u05E8", buttonLabel: "reysh", description: "reysh" },
+            { text: "\u05E9", buttonLabel: "shin", description: "shin" },
+            { text: "\u05E9\u05C2", buttonLabel: "sin", description: "sin" },
+            { text: "\u05EA\u05BC", buttonLabel: "tof", description: "tof" },
+            { text: "\u05EA", buttonLabel: "sof", description: "sof" },
         ];
 
         var whiteSpaceCharacters = [
@@ -81,37 +81,29 @@
         ];
 
         var punctuationCharacters = [
-            letter2(".", "."),
-            letter2(",", ","),
-            letter2("?", "?"),
-            letter2(";", ";"),
-            letter2(":", ":"),
-            letter2("\u05F3", "\u05F3 geresh"),
-            letter2("\u05F4", "\u05F4 gershayim"),
+            { text: ".", buttonLabel: ".", description: "." },
+            { text: ",", buttonLabel: ",", description: "," },
+            { text: "?", buttonLabel: "?", description: "?" },
+            { text: ";", buttonLabel: ";", description: ";" },
+            { text: ":", buttonLabel: ":", description: ":" },
+            { text: "\u05F3", buttonLabel: "\u05F3 geresh", description: "\u05F3 geresh" },
+            { text: "\u05F4", buttonLabel: "\u05F4 gershayim", description: "\u05F4 gershayim" },
         ];
 
-        var letterCombinations = [simpleLetter("\u05D5\u05D5"), simpleLetter("\u05D6\u05E9"), simpleLetter("\u05D3\u05D6\u05E9"), simpleLetter("\u05D8\u05E9"), simpleLetter("\u05D5\u05E9"), simpleLetter("\u05E9\u05E9"), simpleLetter("\u05F2\u05B7")];
-
-
-        // letter2 is a function for defining data required for a button that writes the same text
-        // as appears on the button itself. The audio description for the
-        // button can differ.
-        function letter2(textLabel, descriptionValue) {
-            return { text: textLabel, buttonLabel: textLabel, description: descriptionValue };
-        }
-
-        // simple letter is a function for creating the data for creating
-        // a button
-        // that writes exactly what appears on it
-        // and has the same audio description of what it writes. 
-        function simpleLetter(textLabelEtc) {
-            return { text: textLabelEtc, buttonLabel: textLabelEtc, description: textLabelEtc };
-        }
+        var letterCombinations = [
+            { text: "\u05D5\u05D5", buttonLabel: "\u05D5\u05D5", description: "\u05D5\u05D5" },
+            { text: "\u05D6\u05E9", buttonLabel: "\u05D6\u05E9", description: "\u05D6\u05E9" },
+            { text: "\u05D3\u05D6\u05E9", buttonLabel: "\u05D3\u05D6\u05E9", description: "\u05D3\u05D6\u05E9" },
+            { text: "\u05D8\u05E9", buttonLabel: "\u05D8\u05E9", description: "\u05D8\u05E9" },
+            { text: "\u05D5\u05E9", buttonLabel: "\u05D5\u05E9", description: "\u05D5\u05E9" },
+            { text: "\u05E9\u05E9", buttonLabel: "\u05E9\u05E9", description: "\u05E9\u05E9" },
+            { text: "\u05F2\u05B7", buttonLabel: "\u05F2\u05B7", description: "\u05F2\u05B7" }
+        ];
 
 
         // This function returns a function
         function onClickButtonForWriting(textToWrite) {
-            function enclosedFunction () {
+            function enclosedFunction() {
                 document.getElementById("textOutput").value += textToWrite;
             }
             return enclosedFunction;
