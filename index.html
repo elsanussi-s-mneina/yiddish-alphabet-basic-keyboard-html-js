@@ -32,13 +32,8 @@
 </head>
 
 <body>
-    <h1>Yiddish Alphabet Basic Keyboard</h1>
-    <textarea id="textOutput" dir="rtl" style="width:95%" rows="4" lang="yi"
-        aria-label="Text you type with buttons below gets added to the end of the text in this text box"
-        placeholder="Text you type with buttons below gets added to the end of the text in this text box"></textarea>
     <div id="root"></div>
 
-    <footer><a href="https://yivo.org/Yiddish-Alphabet">About the Yiddish Alef-BEYS (ALPHABET)</a></footer>
     <script>
 
         var yiddishAlphabet = [
@@ -114,14 +109,12 @@
         }
 
 
-        // If something is clicked,
-        // and it has an attribute "textToWrite"
-        // then add the text value of textToWrite
-        // to the textOutput text area.
-        function onClickButtonForWriting(event) {
-            if (event.target.textToWrite) {
-                document.getElementById("textOutput").value += event.target.textToWrite;
+        // This function returns a function
+        function onClickButtonForWriting(textToWrite) {
+            function enclosedFunction () {
+                document.getElementById("textOutput").value += textToWrite;
             }
+            return enclosedFunction;
         }
 
         // Create a button that when pressed
@@ -140,26 +133,26 @@
             var textNode = document.createTextNode(buttonLabel);
             aButton.appendChild(textNode);
             aButton.ariaLabel = description;
-            aButton.textToWrite = textToWrite;
+            aButton.onclick = onClickButtonForWriting(textToWrite);
             return aButton;
         }
 
-        function createHeading2(textToShow) {
-            var element = document.createElement("h2");
+        function createHeading(level, textToShow) {
+            var element = document.createElement("h" + level);
             var textNode = document.createTextNode(textToShow);
             element.appendChild(textNode);
             return element;
         }
 
+
         function attachButtonsForWriting(idOfRootElement) {
             var root = document.getElementById(idOfRootElement);
 
             root.dir = "rtl";
-            root.addEventListener("click", onClickButtonForWriting);
 
             var whiteSpaceDiv = document.createElement("div");
             whiteSpaceDiv.className = "whitespace";
-            root.appendChild(createHeading2("Spacing"))
+            root.appendChild(createHeading(2, "Spacing"))
             for (var i = 0; i < whiteSpaceCharacters.length; i++) {
                 whiteSpaceDiv.appendChild(createButtonForWriting(whiteSpaceCharacters[i]));
             }
@@ -167,7 +160,7 @@
 
             var punctuationDiv = document.createElement("div");
             punctuationDiv.className = "punctuation";
-            root.appendChild(createHeading2("Punctuation"))
+            root.appendChild(createHeading(2, "Punctuation"))
 
             for (var i = 0; i < punctuationCharacters.length; i++) {
                 punctuationDiv.appendChild(createButtonForWriting(punctuationCharacters[i]));
@@ -176,7 +169,7 @@
 
             var alphabetDiv = document.createElement("div");
             alphabetDiv.className = "alphabet";
-            root.appendChild(createHeading2("Alphabet"))
+            root.appendChild(createHeading(2, "Alphabet"))
 
             for (var i = 0; i < yiddishAlphabet.length; i++) {
                 alphabetDiv.appendChild(createButtonForWriting(yiddishAlphabet[i]));
@@ -184,7 +177,7 @@
             root.appendChild(alphabetDiv);
 
             var combinationsDiv = document.createElement("div");
-            root.appendChild(createHeading2("Letter Combinations"))
+            root.appendChild(createHeading(2, "Letter Combinations"))
 
             combinationsDiv.className = "combinations";
             for (var i = 0; i < letterCombinations.length; i++) {
@@ -193,7 +186,41 @@
             root.appendChild(combinationsDiv);
         }
 
+        function createAppHeading() {
+            var heading1 = createHeading("1", "Yiddish Alphabet Basic Keyboard");
+            return heading1;
+        }
+
+        function createTextArea() {
+            var textArea = document.createElement("textarea");
+            textArea.id = "textOutput";
+            textArea.dir = "rtl";
+            textArea.style = "width:95%";
+            textArea.rows = 4;
+            textArea.lang = "yi";
+            var placeholderText = "Text you type with buttons below gets added to the end of the text in this text box";
+            textArea.ariaLabel = placeholderText;
+            textArea.placeholder = placeholderText;
+            return textArea
+
+        }
+
+        function createFooter() {
+            var footer = document.createElement("footer");
+            var link = document.createElement("a");
+            link.href = "https://yivo.org/Yiddish-Alphabet";
+            var linkText = document.createTextNode("About the Yiddish Alef-BEYS (ALPHABET)");
+            link.appendChild(linkText);
+            footer.appendChild(link);
+            return footer;
+        }
+        root.appendChild(document.createComment("Start of HTML code generated by Javascript."));
+        root.appendChild(createTextArea());
         attachButtonsForWriting("root");
+        root.appendChild(createFooter());
+
+
+        root.appendChild(document.createComment("End of HTML code generated by Javascript."));
     </script>
 
 </body>
