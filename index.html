@@ -5,9 +5,13 @@
     <meta charset="utf-8" />
     <title>Yiddish Alphabet Basic Keyboard</title>
     <style>
+
+        /* The page uses a serif font throughout. */
         * {
             font-family: serif;
         }
+
+
         button {
             font-size: 3em;
             margin: 0.4em;
@@ -18,10 +22,19 @@
             border-width: 0.12em;
         }
 
+        /* Round the text area, where the line ends. In a right to left language
+         this border rounding is at the top-left */
         textarea {
             font-size: 3em;
+
+            /* Dear future programmer,
+              Switch the values of border-top-left-radius
+              and border-top-right-radius when modifying this
+              code to write text for a language that flows in a different direction.
+            */
             border-top-left-radius: 1.0em;
             border-top-right-radius: 0.0em;
+            
             top: 0px;
             height: 33vh
         }
@@ -32,7 +45,7 @@
             text-align: center;
         }
 
-        /* Some classes for style, for those who want
+        /* Some classes for style, for those programmers who want
         a more specific style:
         .punctuation {}
         .alphabet {}
@@ -48,6 +61,12 @@
 
     <script>
 
+        // A variable that defines the Yiddish alphabet.
+        // Each character is defined as the 
+        // text that it will write in the text box,
+        // the buttonLabel which is the text that is written on the button
+        // and the description, which is what a screenreader would describe
+        // the button as.
         var yiddishAlphabet = [
             { text: "\u05D0", buttonLabel: "\u05D0 shtumer alef", description: "shtumer alef" },
             { text: "\u05D0\u05B7", buttonLabel: "\u05D0\u05B7 pasekh alef", description: "pasekh alef" },
@@ -86,12 +105,21 @@
             { text: "\u05EA", buttonLabel: "\u05EA sof", description: "sof" },
         ];
 
+        // Whitespace characters are characters that require no ink to write
+        // when written traditionally on paper. In essence they are spaces between
+        // words or lines.
         var whiteSpaceCharacters = [
             { text: " ", buttonLabel: "[space]", description: "add space" },
             { text: "\n", buttonLabel: "[start new line]", description: "start new line" },
             { text: "\t", buttonLabel: "[indent]", description: "indent" },
         ];
 
+        // Punctuation characters.
+        // Note, Yiddish is written in Hebrew script. And
+        // Geresh roughly corresponds to single quote
+        // in Latin script. Gershayim roughly corresponds to
+        // double quote. But they have extra uses that
+        // have no equivalent in the Latin script.
         var punctuationCharacters = [
             { text: ".", buttonLabel: ".", description: "." },
             { text: ",", buttonLabel: ",", description: "," },
@@ -102,6 +130,17 @@
             { text: "\u05F4", buttonLabel: "\u05F4 gershayim", description: "\u05F4 gershayim" },
         ];
 
+        // The following are combinations of letters.
+        // Mathematically speaking these are sequences of letters.
+        // Technically, we do not need these buttons. Every letter combination
+        // here could be written by pressing two distinct buttons above,
+        // except for the last one.
+        // However the buttons on this page are based directly on yivo.org/Yiddish-Alphabet
+        // and I would rather follow their description as closely as possible.
+        // For those who are linguists, you may notice that a few of these are
+        // ways of writing affricates and dipthongs in Yiddish. Since linguistically
+        // people perceive the group of sounds these letter combinations represent as a single
+        // sound, it is quite reasonable to give them their own button.
         var letterCombinations = [
             { text: "\u05D5\u05D5", buttonLabel: "\u05D5\u05D5", description: "\u05D5\u05D5" },
             { text: "\u05D6\u05E9", buttonLabel: "\u05D6\u05E9", description: "\u05D6\u05E9" },
@@ -113,7 +152,8 @@
         ];
 
 
-        // This function returns a function
+        // This function returns a function that places text
+        // at the end of the text area.
         function onClickButtonForWriting(textToWrite) {
             function enclosedFunction() {
                 document.getElementById("textOutput").value += textToWrite;
@@ -141,6 +181,9 @@
             return aButton;
         }
 
+        // Create a heading of a particular level.
+        // This first argument is a number such as "1", "2", all the way to "6".
+        // The second argument is the text to show in the heading.
         function createHeading(level, textToShow) {
             var element = document.createElement("h" + level);
             var textNode = document.createTextNode(textToShow);
@@ -190,18 +233,24 @@
             root.appendChild(combinationsDiv);
         }
 
+        // Create heading for the whole Yiddish Alphabet Basic keyboard
+        // application.
         function createAppHeading() {
             var heading1 = createHeading("1", "Yiddish Alphabet Basic Keyboard");
             return heading1;
         }
 
+        // Create a text area. The text the user types appears here.
         function createTextArea() {
             var textArea = document.createElement("textarea");
             textArea.id = "textOutput";
             textArea.dir = "rtl";
             textArea.style = "width:95%";
             textArea.rows = 4;
+
+            // Set the text area language to Yiddish.
             textArea.lang = "yi";
+
             var placeholderText = "Text you type with buttons below gets added to the end of the text in this text box";
             textArea.ariaLabel = placeholderText;
             textArea.placeholder = placeholderText;
@@ -209,6 +258,7 @@
 
         }
 
+        // Create a footer.
         function createFooter() {
             var footer = document.createElement("footer");
             var link = document.createElement("a");
@@ -218,6 +268,7 @@
             footer.appendChild(link);
             return footer;
         }
+
         root.appendChild(document.createComment("Start of HTML code generated by Javascript."));
         root.appendChild(createTextArea());
         attachButtonsForWriting("root");
@@ -228,9 +279,7 @@
     </script>
 
 </body>
-
-</html>
-<!-- Created by Elsanussi Mneina (he/him). You can contact me at grassdewmorning@gmail.com, mentioning this page)
+<!-- Created by Elsanussi Mneina (he/him). You can contact me (Elsanussi Mneina) at grassdewmorning@gmail.com, mentioning this page)
   This single page web application for typing Hebrew syllable by syllable was first released to the public on March 30, 2022 on GitHub under an MIT license.
 https://github.com/elsanussi-s-mneina/hebrew-alphabet-syllabic-keyboard-html-js/
 Here is the LICENSE for this web application:
@@ -252,3 +301,5 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 -->
+
+</html>
